@@ -1,0 +1,3 @@
+# Heavier optional dependencies.
+semgrep>=1.70                  # richer static analysis (falls back to ruff security rules if absent)
+sentence-transformers>=2.7     # real semantic embeddings (falls back to a hashing embedder if absent)

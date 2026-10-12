@@ -1,0 +1,23 @@
+{
+  "title": "Add user search endpoint",
+  "files_before": {
+    "db.py": "def query(conn, sql, params=()):\n    cur = conn.cursor()\n    cur.execute(sql, params)\n    return cur.fetchall()\n"
+  },
+  "files_after": {
+    "db.py": "def query(conn, sql, params=()):\n    cur = conn.cursor()\n    cur.execute(sql, params)\n    return cur.fetchall()\n",
+    "search.py": "from db import query\n\n\ndef search_users(conn, name):\n    sql = f\"SELECT * FROM users WHERE name = '{name}'\"\n    return query(conn, sql)\n"
+  },
+  "expected": [
+    {
+      "path": "search.py",
+      "start_line": 5,
+      "end_line": 6,
+      "category": "security"
+    }
+  ],
+  "needed_context": [
+    "db.py"
+  ],
+  "id": "sql-injection-with-safe-helper",
+  "kind": "inline"
+}

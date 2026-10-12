@@ -1,0 +1,20 @@
+{
+  "title": "Add helper to run maintenance commands",
+  "files_before": {
+    "tasks.py": "def noop():\n    return 1\n"
+  },
+  "files_after": {
+    "tasks.py": "import subprocess\n\n\ndef noop():\n    return 1\n\n\ndef run_maintenance(cmd):\n    return subprocess.run(cmd, shell=True, capture_output=True)\n"
+  },
+  "expected": [
+    {
+      "path": "tasks.py",
+      "start_line": 9,
+      "end_line": 9,
+      "category": "security"
+    }
+  ],
+  "needed_context": [],
+  "id": "shell-injection",
+  "kind": "inline"
+}

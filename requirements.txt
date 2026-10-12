@@ -1,0 +1,15 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+httpx>=0.27
+pydantic>=2.6
+pyjwt[crypto]>=2.8
+pyyaml>=6.0
+numpy>=1.26
+tree-sitter>=0.22
+tree-sitter-python>=0.21
+rq>=1.16
+redis>=5.0
+anthropic>=0.40
+python-dotenv>=1.0
+ruff>=0.5
+pytest>=8.0

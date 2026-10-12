@@ -1,0 +1,22 @@
+# Place this file at the root of a repository as .codelens.yml
+enabled: true
+min_severity: low        # info | low | medium | high | critical
+min_confidence: 0.5
+max_comments: 8          # per review; highest severity first
+max_files: 25
+llm_verify: true         # second LLM pass that checks each comment against the code
+ignore_paths:
+  - "migrations/*"
+  - "docs/*"
+  - "*_pb2.py"
+checks:                  # turn whole categories on or off
+  security: true
+  bug: true
+  performance: true
+  design: true
+  maintainability: true
+  testing: true
+conventions: |
+  Free text describing team conventions the reviewer should respect, for example:
+  - We use dependency injection for database sessions.
+  - Public functions need type hints.

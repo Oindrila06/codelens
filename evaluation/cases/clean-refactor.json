@@ -1,0 +1,13 @@
+{
+  "title": "Rename variables and add docstring",
+  "files_before": {
+    "calc.py": "def total(xs):\n    t = 0\n    for x in xs:\n        t += x\n    return t\n"
+  },
+  "files_after": {
+    "calc.py": "def total(values):\n    \"\"\"Sum a list of numbers.\"\"\"\n    result = 0\n    for v in values:\n        result += v\n    return result\n"
+  },
+  "expected": [],
+  "needed_context": [],
+  "id": "clean-refactor",
+  "kind": "inline"
+}

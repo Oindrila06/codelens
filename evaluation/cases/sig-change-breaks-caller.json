@@ -1,0 +1,24 @@
+{
+  "title": "Add include_deleted flag to get_user",
+  "files_before": {
+    "utils.py": "from storage import db\n\n\ndef get_user(uid):\n    return db.query(uid)\n",
+    "api.py": "from utils import get_user\n\n\ndef handler(req):\n    return get_user(req.id)\n"
+  },
+  "files_after": {
+    "utils.py": "from storage import db\n\n\ndef get_user(uid, include_deleted):\n    return db.query(uid, include_deleted)\n",
+    "api.py": "from utils import get_user\n\n\ndef handler(req):\n    return get_user(req.id)\n"
+  },
+  "expected": [
+    {
+      "path": "utils.py",
+      "start_line": 4,
+      "end_line": 4,
+      "category": "bug"
+    }
+  ],
+  "needed_context": [
+    "api.py"
+  ],
+  "id": "sig-change-breaks-caller",
+  "kind": "inline"
+}

@@ -1,0 +1,35 @@
+# Production-like setup: API + RQ worker + Redis.  `docker compose up --build`
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+  api:
+    build: .
+    env_file: .env
+    environment:
+      QUEUE_MODE: redis
+      REDIS_URL: redis://redis:6379/0
+      DATA_DIR: /data
+      GITHUB_PRIVATE_KEY_PATH: /run/secrets/github_key.pem
+    volumes:
+      - ./data:/data
+      - ./secrets/codelens.private-key.pem:/run/secrets/github_key.pem:ro
+    ports: ["8000:8000"]
+    depends_on: [redis]
+    restart: unless-stopped
+
+  worker:
+    build: .
+    command: ["rq", "worker", "reviews", "--url", "redis://redis:6379/0"]
+    env_file: .env
+    environment:
+      QUEUE_MODE: redis
+      REDIS_URL: redis://redis:6379/0
+      DATA_DIR: /data
+      GITHUB_PRIVATE_KEY_PATH: /run/secrets/github_key.pem
+    volumes:
+      - ./data:/data
+      - ./secrets/codelens.private-key.pem:/run/secrets/github_key.pem:ro
+    depends_on: [redis]
+    restart: unless-stopped
